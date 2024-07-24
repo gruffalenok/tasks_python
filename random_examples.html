@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>примеры </title>
+</head>
+
+<body>
+	<p> Реши пример: <span id="task">!!!! </span> <input id="answer" type="text" list=""/></p>
+	<p><input type="button" value="Ok" onclick="checkAnswer();"/></p>
+	<p id="assessment"></p>
+	<p id="score"></p>
+	<h1 id="loss"></h1>
+	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+	<script>
+		var score = 10;
+		
+		var trueAnswer = newTask();
+		function ExampleMultiplication(number) {
+			for (var i = 0;i < number;i++) {
+				var numberOne = 100 + Math.floor(Math.random() * 18);
+				var numberTwo = 5 + Math.floor(Math.random() * 18);
+				var sign = Math.floor(Math.random() * 2);
+				var theWhole = numberOne * numberTwo;
+				var task = document.getElementById("task")
+				//определяем знак
+				if (sign === 0) {
+					task.innerHTML = numberOne + " * " + numberTwo + " = " ;
+					return theWhole;
+				} else {
+					task.innerHTML = theWhole + " : " + numberOne + " = " ;
+					return numberTwo;
+				};
+			}
+		};
+		function ExamplePlus(number) {
+			for (var i = 0;i < number;i++) {
+				var numberOne = 156 + Math.floor(Math.random() * 500);
+				var numberTwo = 156 + Math.floor(Math.random() * 500);
+				var sign = Math.floor(Math.random() * 2);
+				var theWhole = numberOne + numberTwo;
+				var task = document.getElementById("task")
+				//определяем знак
+				if (sign === 0) {
+					task.innerHTML = numberOne + " + " + numberTwo + " = " ;
+					return theWhole;
+				} else {
+					task.innerHTML = theWhole + " - " + numberOne + " = " ;
+					return numberTwo;
+				};
+			}
+		};
+		function newTask() {
+		    var sign = Math.floor(Math.random() * 2);
+			if (sign === 0) {
+				return ExamplePlus(1) ;
+			} else {
+				return ExampleMultiplication(1) ;
+			};
+		}
+		function checkAnswer() {
+		    if (score <= 0) {return;}
+		    var oldTask = document.getElementById("task").innerHTML + document.getElementById("answer").value
+			if (document.getElementById("answer").value == trueAnswer) {
+				document.getElementById("assessment").innerHTML = oldTask + "	Молодец!";
+				score = score + 2;
+			} else {
+				document.getElementById("assessment").innerHTML = oldTask + "	Неправильный ответ!!!";
+				score = score - 5;
+			}
+			if (score > 0) {
+			    trueAnswer = newTask();
+				if (score > 50) {
+					document.getElementById("loss").innerHTML = "Вы выиграли!!!";
+				} else {
+					document.getElementById("loss").innerHTML = "";
+				}
+			} else {
+				document.getElementById("loss").innerHTML = "Вы проиграли!!!";
+			}
+			document.getElementById("answer").value = "";
+			document.getElementById("score").innerHTML = "Набрано очков " + score;
+			
+		}
+	</script>
+
+	 
+</body>
+</html>
